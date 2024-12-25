@@ -25,6 +25,13 @@
     <!-- Fabric.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
 
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Accordion.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/accordion-js@3.3.4/dist/accordion.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/accordion-js@3.3.4/dist/accordion.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 获取容器最大宽度
@@ -179,6 +186,19 @@
                 } catch (error) {
                     console.error('Error downloading image:', error);
                     alert('Error downloading image. Please try again!');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // 初始化 Accordion
+        document.addEventListener('DOMContentLoaded', function() {
+            new Accordion('.accordion-container', {
+                duration: 400,
+                showMultiple: false,
+                onOpen: function(currentElement) {
+                    console.log(currentElement);
                 }
             });
         });
@@ -542,6 +562,7 @@
             font-size: 1.5rem;
             color: var(--christmas-red);
             transition: transform 0.3s ease;
+            margin-left: 10px;
         }
 
         .faq-item.active .faq-question::after {
@@ -551,7 +572,7 @@
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
             background: white;
         }
 
@@ -562,8 +583,8 @@
         }
 
         .faq-item.active .faq-answer {
-            max-height: 500px;
-            transition: max-height 0.5s ease-in;
+            max-height: 1000px; /* 设置一个足够大的值 */
+            transition: max-height 1s ease-in-out;
         }
 
         /* Call to Action Styles */
@@ -841,10 +862,73 @@
         .github-link i {
             font-size: 1.2em;
         }
-    </style>
 
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        /* Accordion Styles */
+        .accordion-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ac {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ac .ac-header {
+            margin: 0;
+        }
+
+        .ac .ac-trigger {
+            font-size: 16px;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background-color: #fff;
+            color: var(--christmas-red);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .ac .ac-trigger:hover {
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+
+        .ac .ac-trigger::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .ac.is-active .ac-trigger::after {
+            transform: rotate(45deg);
+        }
+
+        .ac .ac-panel {
+            overflow: hidden;
+            background-color: #fff;
+            height: 0;
+            transition: height 0.3s ease;
+        }
+
+        .ac .ac-panel .ac-text {
+            padding: 15px 20px;
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
@@ -951,82 +1035,82 @@
                 <div class="faq-title">
                     <h2>Frequently Asked Questions</h2>
                 </div>
-                <div class="faq-accordion">
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            How do I add a Santa hat to my photo?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                <div class="accordion-container">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">How do I add a Santa hat to my photo?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Simply click the "Upload Photo" button to select your photo, then drag the Santa hat to position it
                                 perfectly on your image. Adjust the size and angle as needed, and click "Save Photo" when you're
                                 happy with the result. It's that easy!
-                            </div>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            What types of photos work best?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">What types of photos work best?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Our tool works best with clear headshots or portraits where the top of the head is visible.
                                 However, you can add Santa hats to any photo - from pet pictures to group photos. The
                                 adjustable size and rotation controls make it easy to fit any photo.
-                            </div>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Is this really free?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">Is this really free?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Yes! Our tool is completely free to use with no hidden costs. We don't require registration,
                                 and there are no watermarks on your downloaded images. We believe in spreading holiday cheer
                                 without any barriers!
-                            </div>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            What file formats are supported?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">What file formats are supported?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Our editor supports all common image formats including JPG, PNG, and WEBP. Your downloaded
                                 image will maintain its original quality and format. For best results, we recommend using
                                 clear, high-resolution images.
-                            </div>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Can I use this for commercial purposes?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">Can I use this for commercial purposes?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Yes, you can use photos edited with our tool for both personal and commercial purposes.
                                 However, please note that the Santa hat designs themselves are for personal use only. For
                                 commercial projects, we recommend checking our terms of service.
-                            </div>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            How do I save my edited photo?
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
+                    <div class="ac">
+                        <h2 class="ac-header">
+                            <button class="ac-trigger">How do I save my edited photo?</button>
+                        </h2>
+                        <div class="ac-panel">
+                            <p class="ac-text">
                                 Once you're happy with how your Santa hat looks, simply click the "Save Photo" button. Your
                                 edited photo will automatically save to your device in its original quality. You can then
                                 share it on social media or use it however you'd like!
-                            </div>
+                            </p>
                         </div>
                     </div>
                 </div>
